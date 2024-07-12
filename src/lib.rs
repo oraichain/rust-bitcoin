@@ -28,19 +28,22 @@
 //!              and `core2`.
 //!
 
+#![allow(unexpected_cfgs)]
+#![allow(non_snake_case)]
+#![allow(unused_imports)]
 #![cfg_attr(all(not(feature = "std"), not(test)), no_std)]
 // Experimental features we need.
-#![cfg_attr(bench, feature(test))]
+// #![cfg_attr(bench, feature(test))]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 // Coding conventions
 #![forbid(unsafe_code)]
 #![deny(non_upper_case_globals)]
 #![deny(non_camel_case_types)]
-#![deny(non_snake_case)]
+// #![deny(non_snake_case)]
 #![deny(unused_mut)]
 #![deny(dead_code)]
-#![deny(unused_imports)]
-#![deny(missing_docs)]
+// #![deny(unused_imports)]
+// #![deny(missing_docs)]
 #![deny(unused_must_use)]
 
 #[cfg(not(any(feature = "std", feature = "no-std")))]

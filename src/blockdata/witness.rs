@@ -22,7 +22,9 @@ use crate::VarInt;
 /// For serialization and deserialization performance it is stored internally as a single `Vec`,
 /// saving some allocations.
 ///
-#[derive(Clone, Default, PartialEq, Eq, PartialOrd, Ord, Debug, Hash)]
+#[derive(Clone, Default, PartialEq, Eq, PartialOrd, Ord, Debug, Hash, tsify::Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+#[serde(crate = "actual_serde")]
 pub struct Witness {
     /// contains the witness Vec<Vec<u8>> serialization without the initial varint indicating the
     /// number of elements (which is stored in `witness_elements`)
@@ -337,7 +339,7 @@ impl<'de> serde::Deserialize<'de> for Witness {
                             InvalidLength(expected, got) => {
                                 let exp = format!("expected length: {}", expected);
                                 de::Error::invalid_length(got, &exp.as_str())
-                            }
+                            }                            
                         }
                     })?;
                     ret.push(vec);

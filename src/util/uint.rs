@@ -10,7 +10,9 @@
 macro_rules! construct_uint {
     ($name:ident, $n_words:literal) => {
         /// Little-endian large integer type
-        #[derive(Copy, Clone, PartialEq, Eq, Hash, Default)]
+        #[derive(Copy, Clone, PartialEq, Eq, Hash, Default, tsify::Tsify)]
+        #[serde(crate = "actual_serde")]                  
+        #[tsify(into_wasm_abi, from_wasm_abi)]      
         pub struct $name(pub [u64; $n_words]);
         $crate::internal_macros::impl_array_newtype!($name, u64, $n_words);
 

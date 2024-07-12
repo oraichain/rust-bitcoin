@@ -14,7 +14,7 @@ edition = "2018"
 
 # Please don't forget to add relevant features to docs.rs below
 [features]
-default = [ "std", "secp-recovery" ]
+default = [ "std", "secp-recovery", "serde" ]
 rand = ["secp256k1/rand-std"]
 serde = ["actual-serde", "bitcoin_hashes/serde", "secp256k1/serde"]
 secp-lowmemory = ["secp256k1/lowmemory"]

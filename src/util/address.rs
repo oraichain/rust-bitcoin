@@ -187,7 +187,9 @@ impl FromStr for AddressType {
 ///
 /// First byte of `scriptPubkey` in transaction output for transactions starting with opcodes
 /// ranging from 0 to 16 (inclusive).
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug, Serialize, Deserialize, tsify::Tsify)]
+#[serde(crate = "actual_serde")]                  
+#[tsify(into_wasm_abi, from_wasm_abi)]    
 #[repr(u8)]
 pub enum WitnessVersion {
     /// Initial version of witness program. Used for P2WPKH and P2WPK outputs
@@ -441,7 +443,9 @@ impl From<WitnessVersion> for opcodes::All {
 }
 
 /// The method used to produce an address.
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize, tsify::Tsify)]
+#[serde(crate = "actual_serde")]                  
+#[tsify(into_wasm_abi, from_wasm_abi)]    
 pub enum Payload {
     /// P2PKH address.
     PubkeyHash(PubkeyHash),
@@ -633,7 +637,9 @@ impl<'a> fmt::Display for AddressEncoding<'a> {
 /// * [BIP142 - Address Format for Segregated Witness](https://github.com/bitcoin/bips/blob/master/bip-0142.mediawiki)
 /// * [BIP341 - Taproot: SegWit version 1 spending rules](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki)
 /// * [BIP350 - Bech32m format for v1+ witness addresses](https://github.com/bitcoin/bips/blob/master/bip-0350.mediawiki)
-#[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash, tsify::Tsify)]
+#[serde(crate = "actual_serde")]                  
+#[tsify(into_wasm_abi, from_wasm_abi)]      
 pub struct Address {
     /// The type of the address.
     pub payload: Payload,

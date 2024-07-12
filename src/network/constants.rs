@@ -51,7 +51,9 @@ pub const PROTOCOL_VERSION: u32 = 70001;
 
 user_enum! {
     /// The cryptocurrency to act on
-    #[derive(Copy, PartialEq, Eq, PartialOrd, Ord, Clone, Hash, Debug)]
+    #[derive(Copy, PartialEq, Eq, PartialOrd, Ord, Clone, Hash, Debug, tsify::Tsify)]
+    #[serde(crate = "actual_serde")]                  
+    #[tsify(into_wasm_abi, from_wasm_abi)]    
     pub enum Network {
         /// Classic Bitcoin
         Bitcoin <-> "bitcoin",
