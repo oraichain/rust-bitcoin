@@ -99,7 +99,9 @@ pub enum MerkleBlockError {
 ///  - varint     number of bytes of flag bits (1-3 bytes)
 ///  - byte[]     flag bits, packed per 8 in a byte, least significant bit first (<= 2*N-1 bits)
 /// The size constraints follow from this.
-#[derive(PartialEq, Eq, Clone, Debug)]
+#[derive(PartialEq, Eq, Clone, Debug, Serialize, Deserialize, tsify::Tsify)]
+#[serde(crate = "actual_serde")]
+#[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct PartialMerkleTree {
     /// The total number of transactions in the block
     num_transactions: u32,

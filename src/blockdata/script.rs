@@ -51,7 +51,9 @@ use crate::schnorr::{TapTweak, TweakedPublicKey, UntweakedPublicKey};
 /// ### Bitcoin Core References
 ///
 /// * [CScript definition](https://github.com/bitcoin/bitcoin/blob/d492dc1cdaabdc52b0766bf4cba4bd73178325d0/src/script/script.h#L410)
-#[derive(Clone, Default, PartialOrd, Ord, PartialEq, Eq, Hash)]
+#[derive(Clone, Default, PartialOrd, Ord, PartialEq, Eq, Hash, tsify::Tsify)]
+#[serde(crate = "actual_serde")]
+#[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct Script(Box<[u8]>);
 
 impl<I> Index<I> for Script
