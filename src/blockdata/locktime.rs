@@ -69,7 +69,8 @@ pub const LOCK_TIME_THRESHOLD: u32 = 500_000_000;
 ///     amount: Amount::from_sat(10_000_000),
 /// };
 /// ```
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Debug, Hash)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Debug, Hash, tsify::Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "serde", serde(crate = "actual_serde"))]
 pub struct PackedLockTime(pub u32);
