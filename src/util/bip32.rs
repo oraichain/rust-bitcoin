@@ -77,7 +77,9 @@ impl fmt::Debug for ExtendedPrivKey {
 }
 
 /// Extended public key
-#[derive(Copy, Clone, PartialEq, Eq, Debug, PartialOrd, Ord, Hash, tsify::Tsify)]
+#[derive(
+    Copy, Clone, PartialEq, Eq, Debug, PartialOrd, Ord, Hash, Serialize, Deserialize, tsify::Tsify,
+)]
 #[serde(crate = "actual_serde")]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct ExtendedPubKey {
@@ -95,7 +97,7 @@ pub struct ExtendedPubKey {
     /// Chain code
     pub chain_code: ChainCode,
 }
-serde_string_impl!(ExtendedPubKey, "a BIP-32 extended public key");
+// serde_string_impl!(ExtendedPubKey, "a BIP-32 extended public key");
 
 /// A child number for a derived key
 #[derive(Copy, Clone, PartialEq, Eq, Debug, PartialOrd, Ord, Hash, tsify::Tsify)]
