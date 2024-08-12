@@ -92,9 +92,10 @@ pub struct ExtendedPubKey {
     /// Child number of the key used to derive from parent (0 for master)
     pub child_number: ChildNumber,
     /// Public key
-    #[tsify(type = "number[]")]
+    #[tsify(type = "string")]
     pub public_key: secp256k1::PublicKey,
     /// Chain code
+    #[tsify(type = "string")]
     pub chain_code: ChainCode,
 }
 // serde_string_impl!(ExtendedPubKey, "a BIP-32 extended public key");
