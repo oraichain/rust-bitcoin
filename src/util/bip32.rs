@@ -77,11 +77,7 @@ impl fmt::Debug for ExtendedPrivKey {
 }
 
 /// Extended public key
-#[derive(
-    Copy, Clone, PartialEq, Eq, Debug, PartialOrd, Ord, Hash, Serialize, Deserialize, tsify::Tsify,
-)]
-#[serde(crate = "actual_serde")]
-#[tsify(into_wasm_abi, from_wasm_abi)]
+#[derive(Copy, Clone, PartialEq, Eq, Debug, PartialOrd, Ord, Hash)]
 pub struct ExtendedPubKey {
     /// The network this key is to be used on
     pub network: Network,
@@ -92,13 +88,11 @@ pub struct ExtendedPubKey {
     /// Child number of the key used to derive from parent (0 for master)
     pub child_number: ChildNumber,
     /// Public key
-    #[tsify(type = "string")]
     pub public_key: secp256k1::PublicKey,
     /// Chain code
-    #[tsify(type = "string")]
     pub chain_code: ChainCode,
 }
-// serde_string_impl!(ExtendedPubKey, "a BIP-32 extended public key");
+serde_string_impl!(ExtendedPubKey, "a BIP-32 extended public key");
 
 /// A child number for a derived key
 #[derive(Copy, Clone, PartialEq, Eq, Debug, PartialOrd, Ord, Hash, tsify::Tsify)]
