@@ -27,13 +27,17 @@ use crate::util::key::{KeyPair, PrivateKey, PublicKey};
 use crate::util::{base58, endian, key};
 
 /// A chain code
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, tsify::Tsify)]
+#[serde(crate = "actual_serde")]
+#[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct ChainCode([u8; 32]);
 impl_array_newtype!(ChainCode, u8, 32);
 impl_bytes_newtype!(ChainCode, 32);
 
 /// A fingerprint
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default, tsify::Tsify)]
+#[serde(crate = "actual_serde")]
+#[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct Fingerprint([u8; 4]);
 impl_array_newtype!(Fingerprint, u8, 4);
 impl_bytes_newtype!(Fingerprint, 4);
@@ -86,6 +90,7 @@ pub struct ExtendedPubKey {
     /// Child number of the key used to derive from parent (0 for master)
     pub child_number: ChildNumber,
     /// Public key
+    #[tsify(type = "number[]")]
     pub public_key: secp256k1::PublicKey,
     /// Chain code
     pub chain_code: ChainCode,
@@ -93,7 +98,9 @@ pub struct ExtendedPubKey {
 serde_string_impl!(ExtendedPubKey, "a BIP-32 extended public key");
 
 /// A child number for a derived key
-#[derive(Copy, Clone, PartialEq, Eq, Debug, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, PartialEq, Eq, Debug, PartialOrd, Ord, Hash, tsify::Tsify)]
+#[serde(crate = "actual_serde")]
+#[tsify(into_wasm_abi, from_wasm_abi)]
 pub enum ChildNumber {
     /// Non-hardened key
     Normal {
